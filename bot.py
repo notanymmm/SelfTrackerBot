@@ -1,15 +1,21 @@
 import telebot
 import gspread
+import os
+import json
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
-# --- Telegram Bot Token ---
-TOKEN = "7969314430:AAF4qtQzKxd_U9q4dQwtQvyjj25_FnsrtE0"
+# --- Telegram Bot Token từ biến môi trường ---
+TOKEN = os.getenv("7969314430:AAF4qtQzKxd_U9q4dQwtQvyjj25_FnsrtE0")
 bot = telebot.TeleBot(TOKEN)
 
-# --- Kết nối Google Sheets ---
+# --- Kết nối Google Sheets từ GOOGLE_CREDS ---
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+
+google_creds_json = os.getenv("GOOGLE_CREDS")
+creds_dict = json.loads(google_creds_json)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+
 client = gspread.authorize(creds)
 sheet = client.open("Ghi chép hằng ngày").sheet1
 

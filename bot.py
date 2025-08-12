@@ -6,7 +6,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
 # --- Telegram Bot Token từ biến môi trường ---
-TOKEN = os.getenv("7969314430:AAF4qtQzKxd_U9q4dQwtQvyjj25_FnsrtE0")
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 bot = telebot.TeleBot(TOKEN)
 
 # --- Kết nối Google Sheets từ GOOGLE_CREDS ---
@@ -48,3 +48,4 @@ def save_to_sheet(message):
 
 # --- Chạy bot ---
 bot.polling()
+
